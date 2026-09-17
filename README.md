@@ -198,7 +198,3 @@ Handles everything from images to games. Paint supports PSD-like editing, Photos
 ```bash
 git clone https://github.com/Nravitejareddy/LabyrinthOS.git
 cd LabyrinthOS
-
-#### 2. Install Dependencies
-```bash
-yarn install

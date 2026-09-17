@@ -74,6 +74,7 @@ style Process fill:#dcfce7,stroke:#16a34a,stroke-width:3px
 style Apps fill:#ede9fe,stroke:#7c3aed,stroke-width:3px
 style WASM fill:#ffedd5,stroke:#f97316,stroke-width:3px
 style Users fill:#ecfccb,stroke:#65a30d,stroke-width:2px
+```
 
 ---
 ## 🧠 About The Project
@@ -138,7 +139,8 @@ The app is built with **Next.js (Static Export)** and **React 19 + TypeScript**.
 ├── utils/
 ├── pages/
 └── README.md
----
+```
+
 ### 💻 Modules
 
 #### 🖥️ Desktop Shell & Window Manager
@@ -195,6 +197,70 @@ Handles everything from images to games. Paint supports PSD-like editing, Photos
 - Yarn
 
 #### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/Nravitejareddy/LabyrinthOS.git
 cd LabyrinthOS
+```
+
+#### 2. Install Dependencies
+
+```bash
+yarn install
+```
+
+#### 3. Prebuild (Generates filesystem index, icons, etc.)
+
+```bash
+yarn build:prebuild
+```
+
+#### 4. Start Development Server
+
+```bash
+yarn dev
+````
+
+Open:
+
+```text
+http://localhost:5173
+```
+
+#### 5. Production Build
+
+```bash
+yarn build
+yarn serve
+```
+
+#### 6. Docker
+
+```bash
+docker build -t labyrinth-os .
+docker run -dp 3000:3000 --rm --name labyrinth-os labyrinth-os
+```
+---
+
+### 🚀 Try It
+
+- `/?app=Browser` - Open Browser directly
+- `/?url=/CREDITS.md` - Open a file path
+- Type `fly` in Run Dialog (Win+R) or Terminal to spawn DesktopFly (1,275 real fly neurons!)
+- Type `SHIFT+F10` for eSheep, `SHIFT+F12` for DevTools
+
+---
+
+## 👨‍💻 Author
+
+**Ravi Teja Reddy N**
+
+- 🐙 GitHub: https://github.com/Nravitejareddy
+
+---
+
+## ⭐ Project Status
+
+> ✅ **Live and actively maintained** — Labyrinth OS is a functional browser-based operating system prototype demonstrating advanced web capabilities: file system emulation, process management, WASM-powered apps, and full desktop UX in a single web app.
+
+> **Labyrinth OS** — *A whole desktop, inside your browser tab.*

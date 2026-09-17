@@ -219,12 +219,12 @@ yarn build:prebuild
 
 ```bash
 yarn dev
-````
+```
 
 Open:
 
 ```text
-http://localhost:5173
+http://localhost:3000
 ```
 
 #### 5. Production Build

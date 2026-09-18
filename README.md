@@ -29,33 +29,105 @@ It behaves like a mini OS: drag, resize, minimize, file explorer, context menus,
 ### 🏗 System Architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
 
 Users([👤 User in Browser])
 
 subgraph Vercel["▲ Vercel / Next.js 15 Static Export"]
-direction LR
+direction TB
 
-Shell["🖥 Desktop Shell<br/>Window Mgr: Drag, Resize, Min/Max, Focus, Z-Index, Anim<br/>Taskbar: Peek, Search (Recent), AI Agent WebLLM/Prompt API<br/>Start Menu: Spotlight, Power (clear session), SHIFT+ESC<br/>Clock: Web Worker + OffscreenCanvas + NTP.js<br/>Run: alias/path, ipfs: & nostr: URIs, Win+R<br/>BG: Milky Way (density wave + parallax), Waves, Hexells, Matrix<br/>APOD, Met, Picsum, Stable Diffusion, FlowerBox, Maze, Pipes"]
+  subgraph Shell["🖥 Desktop Shell"]
+    direction LR
+    WindowMgr["Window Manager<br/>Drag, Resize, Min/Max, Focus, Z-Index, Animations"]
+    Taskbar["Taskbar<br/>Peek Preview, Search (Recent), AI Agent<br/>WebLLM / Prompt API, Run Dialog Win+R"]
+    StartMenu["Start Menu<br/>Expandable Sidebar, Spotlight, Power (clear session)<br/>SHIFT+ESC / Win Key"]
+    Clock["Clock<br/>Web Worker + OffscreenCanvas<br/>NTP.js / System Sync"]
+    BG["Background Engine<br/>Dynamic Wallpapers: Milky Way, Waves, Hexells, Matrix<br/>Slideshow, APOD, Met, AI SD, FlowerBox, Pipes, Maze"]
+    WindowMgr --- Taskbar --- StartMenu --- Clock --- BG
+  end
 
-FS["🧠 File System Layer<br/>BrowserFS + IndexedDB -> /Users/Public, /System<br/>Explorer: Back/Forward/Up, Address Bar, Search<br/>Thumbs/Details, Group Select, Sort name/size/type/date<br/>ZIP Write + ZIP/ISO Read + 7Z/GZ/RAR/TAR Extract (fflate)<br/>DnD Internal/External, Context Menus, Properties<br/>Shortcuts: CTRL+C/V/X/A, F2, F5, Win+R<br/>Persists pos/sort/size/maximized, Dynamic Icon Cache"]
+  subgraph FS["🧠 File System Layer"]
+    direction TB
+    Explorer["File Explorer<br/>Back/Forward/Up, Address Bar, Search<br/>Thumbnails/Details, Group Select, Sort, Tooltips"]
+    BFS["BrowserFS + IndexedDB<br/>/Users/Public, /System<br/>Persists icon pos/sort/size/state"]
+    Archive["Archive Layer<br/>ZIP Write, ZIP/ISO Read, 7Z/GZ/RAR/TAR Extract<br/>fflate"]
+    DnD["Interactions<br/>Drag & Drop Internal/External, Context Menus<br/>Cut/Copy/Paste/Shortcut, CTRL+C/V/X/A, F2, F5"]
+    Explorer --> BFS --> Archive --> DnD
+  end
 
-Process["⚙ Process & Session<br/>App Lifecycle, Contexts<br/>Session Persist + Snapshots<br/>/Public/Snapshots for v86/js-dos"]
+  subgraph Process["⚙ Process & Session System"]
+    ProcessMgr["App Lifecycle, State, Contexts<br/>fileSystem / process / session"]
+    Persist["Persistence<br/>Snapshots -> /Users/Public/Snapshots<br/>Save States for v86 / js-dos"]
+  end
 
-Apps["🧪 App Ecosystem - 30+ Apps<br/>System: Terminal (xterm, git, python, wapm), DevTools SHIFT+F12<br/>Prod: Monaco/Vim/TinyMCE, Paint, Photos HEIF/JXL/QOI/TIFF, PDF<br/>Media: Webamp .wsz Milkdrop, Video codecbox + YouTube, FFmpeg<br/>Emu: BoxedWine .exe 16/32-bit, js-dos, v86 .img/.iso, EmulatorJS<br/>Ruffle .swf, TIC-80, a26/.nes/.gba/.n64<br/>Network: Messenger Nostr NIP-04, IRC WS, Browser CORS/IPFS<br/>Games: Chess stockfish .pgn, ClassiCube, DX-Ball, Pinball, Quake III<br/>Easter: DesktopFly 1,275 real FlyWire neurons, eSheep SHIFT+F10"]
+  Shell --> FS
+  Shell --> Process
+  FS <--> Process
 
-WASM["🔧 WASM / Workers / Parsers<br/>Workers + OffscreenCanvas: Clock, Wallpapers, 3D<br/>WASM: ffmpeg, Stockfish, WebLLM, WebSD, Python<br/>Parsers: mediainfo.js, music-metadata, fflate"]
+  subgraph Apps["🧪 App Ecosystem - 30+ Apps"]
+    direction LR
+    subgraph SysApps["System"]
+      DevTools["DevTools<br/>Console, Elements, Network<br/>SHIFT+F12"]
+      Terminal["Terminal<br/>xterm, git clone, python .py<br/>wapm, autocomplete, pipe"]
+      Run["Run Dialog<br/>Launch by alias/path<br/>ipfs: & nostr: URIs"]
+    end
+    subgraph ProdApps["Productivity"]
+      Monaco["Monaco/Vim/TinyMCE<br/>Prettier, CTRL+S, Lang ID"]
+      Marked["Marked .md / OpenType .otf/.ttf"]
+      Paint["Paint .bmp/.png/.webp"]
+      PDF["PDF.js / Photos<br/>HEIF/JXL/QOI/TIFF"]
+    end
+    subgraph MediaApps["Media"]
+      Webamp["Webamp .mp3/.wsz<br/>Milkdrop, Skins"]
+      Video["Video Player<br/>codecbox.js, YouTube"]
+      FFmpeg["FFmpeg / ImageMagick<br/>Convert audio/video/photo"]
+    end
+    subgraph EmuApps["Emulation"]
+      BoxedWine["BoxedWine .exe/.zip<br/>Win 16/32-bit"]
+      JSDOS["js-dos / v86 .img/.iso<br/>Auto Resize + Save State"]
+      EmuJS["EmulatorJS .nes/.gba/.n64<br/>Ruffle .swf, TIC-80 .tic"]
+    end
+    subgraph NetApps["Network / Social"]
+      Messenger["Messenger<br/>Nostr NIP-04 Encrypted"]
+      IRC["IRC<br/>WebSocket Client"]
+      BrowserApp["Browser .html<br/>CORS Proxy, IPFS, Bookmark Bar<br/>chrome://dino"]
+    end
+    subgraph GamesApps["Games + Easter Eggs"]
+      Chess["Chess .pgn<br/>stockfish.js"]
+      Games["ClassiCube, DX-Ball<br/>Pinball, Quake III"]
+      Eggs["DesktopFly 1,275 neurons<br/>FlyWire / eSheep SHIFT+F10"]
+    end
+  end
 
+  subgraph WASM["🔧 WASM / Workers / OffscreenCanvas"]
+    direction LR
+    Workers["Workers: Clock, Wallpapers, 3D"]
+    WasmLibs["WASM: ffmpeg, Stockfish, WebLLM<br/>WebSD, Python, BoxedWine, v86"]
+    Parsers["Parsers: mediainfo.js<br/>music-metadata-browser"]
+  end
+
+  Process -->|Launches / Manages| Apps
+  FS <-->|Read/Write / Extract| Apps
+  Apps <--> WASM
 end
 
-Users --> Shell --> FS --> Process --> Apps --> WASM
+subgraph External["🌐 External Services"]
+  VercelDeploy["Vercel / Docker"]
+  IPFS["IPFS / Nostr Relays / IRC Network"]
+  APIs["APOD / Met Museum / Lorem Picsum / NTP"]
+end
 
+Users -->|Mouse, Keyboard, Shortcuts<br/>Win+R, SHIFT+F10/F12, Win Key| Shell
+WASM --> External
+
+%% COLORS
 style Vercel fill:#111827,stroke:#000,stroke-width:4px,color:#fff
 style Shell fill:#dbeafe,stroke:#2563eb,stroke-width:3px
 style FS fill:#fef3c7,stroke:#f59e0b,stroke-width:3px
 style Process fill:#dcfce7,stroke:#16a34a,stroke-width:3px
 style Apps fill:#ede9fe,stroke:#7c3aed,stroke-width:3px
 style WASM fill:#ffedd5,stroke:#f97316,stroke-width:3px
+style External fill:#f3f4f6,stroke:#6b7280,stroke-width:2px
 ```
 
 ---

@@ -31,63 +31,24 @@ It behaves like a mini OS: drag, resize, minimize, file explorer, context menus,
 ```mermaid
 flowchart LR
 
-Users([👤 User])
+Users([👤 User in Browser])
 
-subgraph Vercel["▲ Vercel / Next.js Static Export"]
+subgraph Vercel["▲ Vercel / Next.js 15 Static Export"]
 direction LR
 
-  subgraph Shell["🖥 Shell"]
-    direction TB
-    WindowMgr["Window Mgr<br/>Drag/Resize/Min/Max/Focus"]
-    Taskbar["Taskbar<br/>Peek, Search, AI WebLLM<br/>Run Win+R"]
-    StartMenu["Start Menu<br/>Spotlight, Power"]
-    Clock["Clock<br/>Worker + OffscreenCanvas<br/>NTP.js"]
-    BG["Wallpapers<br/>Milky Way, Waves, Matrix<br/>APOD, Met, AI SD"]
-  end
+Shell["🖥 Desktop Shell<br/>Window Mgr: Drag, Resize, Min/Max, Focus, Anim, Z-Index<br/>Taskbar: Peek, Search (Recent), AI Agent WebLLM/Prompt API<br/>Start Menu: Spotlight, Power (clears session)<br/>Clock: Web Worker + OffscreenCanvas + NTP.js<br/>Run Dialog: alias/path, ipfs: & nostr: URIs<br/>Background: Milky Way (parallax), Waves, Hexells, Matrix<br/>APOD, Met, Picsum, SD, FlowerBox, Maze, Pipes"]
 
-  subgraph FS["🧠 File System"]
-    direction TB
-    Explorer["Explorer<br/>Back/Forward/Search<br/>Thumbs/Details/Sort"]
-    BFS["BrowserFS + IndexedDB<br/>/Public /System"]
-    Archive["ZIP Write / ISO / 7Z/RAR/TAR<br/>fflate"]
-    DnD["DnD + Context Menus<br/>C/V/X/A, F2, F5"]
-  end
+FS["🧠 File System Layer<br/>BrowserFS + IndexedDB -> /Users/Public, /System<br/>Explorer: Back/Forward/Up, Address Bar, Search<br/>Thumbs/Details, Group Select, Sort name/size/type/date<br/>ZIP Write + ZIP/ISO Read + 7Z/GZ/RAR/TAR Extract<br/>DnD Internal/External, Context Menus, Properties<br/>Shortcuts: CTRL+C/V/X/A, F2, F5, Win+R<br/>Persists pos/sort/size/maximized, Dynamic Icon Cache"]
 
-  subgraph Process["⚙ Process"]
-    ProcMgr["Lifecycle / Session / Contexts"]
-    Snap["Snapshots<br/>/Public/Snapshots<br/>v86 / js-dos Save State"]
-  end
+Process["⚙ Process & Session<br/>App Lifecycle, Contexts<br/>Session Persist + Snapshots<br/>/Public/Snapshots for v86/js-dos"]
 
-  subgraph Apps["🧪 30+ Apps"]
-    direction TB
-    Sys["System: Terminal xterm<br/>DevTools SHIFT+F12, Run"]
-    Prod["Prod: Monaco/Vim/TinyMCE<br/>Paint, PDF, Photos HEIF/JXL"]
-    Media["Media: Webamp Milkdrop<br/>Video codecbox + YT<br/>FFmpeg Convert"]
-    Emu["Emu: BoxedWine .exe<br/>js-dos/v86 .iso<br/>EmuJS/Ruffle/TIC-80"]
-    Net["Net: Nostr Messenger<br/>IRC WS, Browser IPFS/CORS"]
-    Games["Games: Chess stockfish<br/>ClassiCube, Quake III<br/>Fly 1,275 neurons, eSheep"]
-  end
+Apps["🧪 App Ecosystem - 30+ Apps<br/>System: Terminal xterm git/python/wapm, DevTools SHIFT+F12, Run<br/>Prod: Monaco/Vim/TinyMCE, Paint, Photos HEIF/JXL/QOI/TIFF, PDF<br/>Media: Webamp .wsz Milkdrop, Video codecbox YouTube, FFmpeg<br/>Emu: BoxedWine .exe/.zip 16/32-bit, js-dos, v86 .img/.iso, EmulatorJS .a26/.nes/.gba/.n64, Ruffle .swf, TIC-80<br/>Network: Messenger Nostr NIP-04, IRC WS, Browser CORS/Proxy/IPFS<br/>Games: Chess stockfish .pgn, ClassiCube, DX-Ball, Pinball, Quake III<br/>Easter: DesktopFly 1,275 neurons FlyWire, eSheep SHIFT+F10"]
 
-  subgraph WASM["🔧 WASM / Workers"]
-    direction TB
-    Workers["Workers: Clock, BG<br/>OffscreenCanvas"]
-    WasmLibs["WASM: ffmpeg, Stockfish<br/>WebLLM, WebSD, Python"]
-    Parsers["Parsers: mediainfo<br/>music-metadata"]
-  end
+WASM["🔧 WASM / Workers / Parsers<br/>Workers + OffscreenCanvas: Clock, Wallpapers, 3D<br/>WASM: ffmpeg, Stockfish, WebLLM, WebSD, Python, BoxedWine<br/>Parsers: mediainfo.js, music-metadata, fflate"]
 
 end
 
-subgraph External["🌐 External"]
-  APIs["APOD, Met, Picsum<br/>NTP, Nostr, IPFS, IRC"]
-end
-
-Users --> Shell
-Shell --> FS
-FS <--> Process
-Process --> Apps
-Apps <--> WASM
-FS <--> Apps
-WASM --> External
+Users --> Shell --> FS --> Process --> Apps --> WASM
 
 style Vercel fill:#111827,stroke:#000,stroke-width:4px,color:#fff
 style Shell fill:#dbeafe,stroke:#2563eb,stroke-width:3px
@@ -95,7 +56,6 @@ style FS fill:#fef3c7,stroke:#f59e0b,stroke-width:3px
 style Process fill:#dcfce7,stroke:#16a34a,stroke-width:3px
 style Apps fill:#ede9fe,stroke:#7c3aed,stroke-width:3px
 style WASM fill:#ffedd5,stroke:#f97316,stroke-width:3px
-style External fill:#f3f4f6,stroke:#6b7280,stroke-width:2px
 ```
 
 ---

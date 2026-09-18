@@ -19,7 +19,7 @@ It behaves like a mini OS: drag, resize, minimize, file explorer, context menus,
 **https://labyrinth-os.vercel.app/**
 
 <p align="center">
-  <video src="https://github.com/Nravitejareddy/labyrinth-os/assets/REPLACE_WITH_YOUR_VIDEO_LINK/LabyrinthOS_Demo.mp4" width="100%" autoplay loop muted controls playsinline></video>
+  <video src="https://github.com/user-attachments/assets/018ff0ae-6922-4ca9-870e-fe257e9c812c" width="100%" autoplay loop muted controls playsinline></video>
 </p>
 
 > How to add video: Create a new Issue in your repo -> Drag & drop your .mp4 demo -> Copy the generated video URL -> Replace the URL above. Like you did for Virtual Spaces.

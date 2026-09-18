@@ -36,15 +36,15 @@ Users([👤 User in Browser])
 subgraph Vercel["▲ Vercel / Next.js 15 Static Export"]
 direction LR
 
-Shell["🖥 Desktop Shell<br/>Window Mgr: Drag, Resize, Min/Max, Focus, Anim, Z-Index<br/>Taskbar: Peek, Search (Recent), AI Agent WebLLM/Prompt API<br/>Start Menu: Spotlight, Power (clears session)<br/>Clock: Web Worker + OffscreenCanvas + NTP.js<br/>Run Dialog: alias/path, ipfs: & nostr: URIs<br/>Background: Milky Way (parallax), Waves, Hexells, Matrix<br/>APOD, Met, Picsum, SD, FlowerBox, Maze, Pipes"]
+Shell["🖥 Desktop Shell<br/>Window Mgr: Drag, Resize, Min/Max, Focus, Z-Index, Anim<br/>Taskbar: Peek, Search (Recent), AI Agent WebLLM/Prompt API<br/>Start Menu: Spotlight, Power (clear session), SHIFT+ESC<br/>Clock: Web Worker + OffscreenCanvas + NTP.js<br/>Run: alias/path, ipfs: & nostr: URIs, Win+R<br/>BG: Milky Way (density wave + parallax), Waves, Hexells, Matrix<br/>APOD, Met, Picsum, Stable Diffusion, FlowerBox, Maze, Pipes"]
 
-FS["🧠 File System Layer<br/>BrowserFS + IndexedDB -> /Users/Public, /System<br/>Explorer: Back/Forward/Up, Address Bar, Search<br/>Thumbs/Details, Group Select, Sort name/size/type/date<br/>ZIP Write + ZIP/ISO Read + 7Z/GZ/RAR/TAR Extract<br/>DnD Internal/External, Context Menus, Properties<br/>Shortcuts: CTRL+C/V/X/A, F2, F5, Win+R<br/>Persists pos/sort/size/maximized, Dynamic Icon Cache"]
+FS["🧠 File System Layer<br/>BrowserFS + IndexedDB -> /Users/Public, /System<br/>Explorer: Back/Forward/Up, Address Bar, Search<br/>Thumbs/Details, Group Select, Sort name/size/type/date<br/>ZIP Write + ZIP/ISO Read + 7Z/GZ/RAR/TAR Extract (fflate)<br/>DnD Internal/External, Context Menus, Properties<br/>Shortcuts: CTRL+C/V/X/A, F2, F5, Win+R<br/>Persists pos/sort/size/maximized, Dynamic Icon Cache"]
 
 Process["⚙ Process & Session<br/>App Lifecycle, Contexts<br/>Session Persist + Snapshots<br/>/Public/Snapshots for v86/js-dos"]
 
-Apps["🧪 App Ecosystem - 30+ Apps<br/>System: Terminal xterm git/python/wapm, DevTools SHIFT+F12, Run<br/>Prod: Monaco/Vim/TinyMCE, Paint, Photos HEIF/JXL/QOI/TIFF, PDF<br/>Media: Webamp .wsz Milkdrop, Video codecbox YouTube, FFmpeg<br/>Emu: BoxedWine .exe/.zip 16/32-bit, js-dos, v86 .img/.iso, EmulatorJS .a26/.nes/.gba/.n64, Ruffle .swf, TIC-80<br/>Network: Messenger Nostr NIP-04, IRC WS, Browser CORS/Proxy/IPFS<br/>Games: Chess stockfish .pgn, ClassiCube, DX-Ball, Pinball, Quake III<br/>Easter: DesktopFly 1,275 neurons FlyWire, eSheep SHIFT+F10"]
+Apps["🧪 App Ecosystem - 30+ Apps<br/>System: Terminal (xterm, git, python, wapm), DevTools SHIFT+F12<br/>Prod: Monaco/Vim/TinyMCE, Paint, Photos HEIF/JXL/QOI/TIFF, PDF<br/>Media: Webamp .wsz Milkdrop, Video codecbox + YouTube, FFmpeg<br/>Emu: BoxedWine .exe 16/32-bit, js-dos, v86 .img/.iso, EmulatorJS<br/>Ruffle .swf, TIC-80, a26/.nes/.gba/.n64<br/>Network: Messenger Nostr NIP-04, IRC WS, Browser CORS/IPFS<br/>Games: Chess stockfish .pgn, ClassiCube, DX-Ball, Pinball, Quake III<br/>Easter: DesktopFly 1,275 real FlyWire neurons, eSheep SHIFT+F10"]
 
-WASM["🔧 WASM / Workers / Parsers<br/>Workers + OffscreenCanvas: Clock, Wallpapers, 3D<br/>WASM: ffmpeg, Stockfish, WebLLM, WebSD, Python, BoxedWine<br/>Parsers: mediainfo.js, music-metadata, fflate"]
+WASM["🔧 WASM / Workers / Parsers<br/>Workers + OffscreenCanvas: Clock, Wallpapers, 3D<br/>WASM: ffmpeg, Stockfish, WebLLM, WebSD, Python<br/>Parsers: mediainfo.js, music-metadata, fflate"]
 
 end
 

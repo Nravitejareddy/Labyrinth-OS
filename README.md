@@ -29,28 +29,105 @@ It behaves like a mini OS: drag, resize, minimize, file explorer, context menus,
 ### 🏗 System Architecture
 
 ```mermaid
-flowchart LR
+flowchart TB
 
-User([👤 User])
+Users([👤 User in Browser])
 
-subgraph Vercel["▲ Vercel / Static Export"]
-  direction LR
-  Shell["🖥 Shell<br/>Window Mgr, Taskbar, Start Menu<br/>Clock Worker + NTP, Backgrounds"]
-  FS["🧠 File System<br/>BrowserFS + IndexedDB<br/>Explorer, ZIP/ISO/7Z, DnD"]
-  Process["⚙ Process<br/>Lifecycle, Session, Snapshots"]
-  Apps["🧪 30+ Apps<br/>System, Prod, Media, Emu<br/>Network, Games"]
-  WASM["🔧 WASM<br/>ffmpeg, Stockfish, WebLLM<br/>Workers, OffscreenCanvas"]
-  Shell --> FS --> Process --> Apps --> WASM
+subgraph Vercel["▲ Vercel / Next.js 15 Static Export"]
+direction TB
+
+  subgraph Shell["🖥 Desktop Shell"]
+    direction LR
+    WindowMgr["Window Manager<br/>Drag, Resize, Min/Max, Focus, Z-Index, Animations"]
+    Taskbar["Taskbar<br/>Peek Preview, Search (Recent), AI Agent<br/>WebLLM / Prompt API, Run Dialog Win+R"]
+    StartMenu["Start Menu<br/>Expandable Sidebar, Spotlight, Power (clear session)<br/>SHIFT+ESC / Win Key"]
+    Clock["Clock<br/>Web Worker + OffscreenCanvas<br/>NTP.js / System Sync"]
+    BG["Background Engine<br/>Dynamic Wallpapers: Milky Way, Waves, Hexells, Matrix<br/>Slideshow, APOD, Met, AI SD, FlowerBox, Pipes, Maze"]
+    WindowMgr --- Taskbar --- StartMenu --- Clock --- BG
+  end
+
+  subgraph FS["🧠 File System Layer"]
+    direction TB
+    Explorer["File Explorer<br/>Back/Forward/Up, Address Bar, Search<br/>Thumbnails/Details, Group Select, Sort, Tooltips"]
+    BFS["BrowserFS + IndexedDB<br/>/Users/Public, /System<br/>Persists icon pos/sort/size/state"]
+    Archive["Archive Layer<br/>ZIP Write, ZIP/ISO Read, 7Z/GZ/RAR/TAR Extract<br/>fflate"]
+    DnD["Interactions<br/>Drag & Drop Internal/External, Context Menus<br/>Cut/Copy/Paste/Shortcut, CTRL+C/V/X/A, F2, F5"]
+    Explorer --> BFS --> Archive --> DnD
+  end
+
+  subgraph Process["⚙ Process & Session System"]
+    ProcessMgr["App Lifecycle, State, Contexts<br/>fileSystem / process / session"]
+    Persist["Persistence<br/>Snapshots -> /Users/Public/Snapshots<br/>Save States for v86 / js-dos"]
+  end
+
+  Shell --> FS
+  Shell --> Process
+  FS <--> Process
+
+  subgraph Apps["🧪 App Ecosystem - 30+ Apps"]
+    direction LR
+    subgraph SysApps["System"]
+      DevTools["DevTools<br/>Console, Elements, Network<br/>SHIFT+F12"]
+      Terminal["Terminal<br/>xterm, git clone, python .py<br/>wapm, autocomplete, pipe"]
+      Run["Run Dialog<br/>Launch by alias/path<br/>ipfs: & nostr: URIs"]
+    end
+    subgraph ProdApps["Productivity"]
+      Monaco["Monaco/Vim/TinyMCE<br/>Prettier, CTRL+S, Lang ID"]
+      Marked["Marked .md / OpenType .otf/.ttf"]
+      Paint["Paint .bmp/.png/.webp"]
+      PDF["PDF.js / Photos<br/>HEIF/JXL/QOI/TIFF"]
+    end
+    subgraph MediaApps["Media"]
+      Webamp["Webamp .mp3/.wsz<br/>Milkdrop, Skins"]
+      Video["Video Player<br/>codecbox.js, YouTube"]
+      FFmpeg["FFmpeg / ImageMagick<br/>Convert audio/video/photo"]
+    end
+    subgraph EmuApps["Emulation"]
+      BoxedWine["BoxedWine .exe/.zip<br/>Win 16/32-bit"]
+      JSDOS["js-dos / v86 .img/.iso<br/>Auto Resize + Save State"]
+      EmuJS["EmulatorJS .nes/.gba/.n64<br/>Ruffle .swf, TIC-80 .tic"]
+    end
+    subgraph NetApps["Network / Social"]
+      Messenger["Messenger<br/>Nostr NIP-04 Encrypted"]
+      IRC["IRC<br/>WebSocket Client"]
+      BrowserApp["Browser .html<br/>CORS Proxy, IPFS, Bookmark Bar<br/>chrome://dino"]
+    end
+    subgraph GamesApps["Games + Easter Eggs"]
+      Chess["Chess .pgn<br/>stockfish.js"]
+      Games["ClassiCube, DX-Ball<br/>Pinball, Quake III"]
+      Eggs["DesktopFly 1,275 neurons<br/>FlyWire / eSheep SHIFT+F10"]
+    end
+  end
+
+  subgraph WASM["🔧 WASM / Workers / OffscreenCanvas"]
+    direction LR
+    Workers["Workers: Clock, Wallpapers, 3D"]
+    WasmLibs["WASM: ffmpeg, Stockfish, WebLLM<br/>WebSD, Python, BoxedWine, v86"]
+    Parsers["Parsers: mediainfo.js<br/>music-metadata-browser"]
+  end
+
+  Process -->|Launches / Manages| Apps
+  FS <-->|Read/Write / Extract| Apps
+  Apps <--> WASM
 end
 
-User --> Shell
+subgraph External["🌐 External Services"]
+  VercelDeploy["Vercel / Docker"]
+  IPFS["IPFS / Nostr Relays / IRC Network"]
+  APIs["APOD / Met Museum / Lorem Picsum / NTP"]
+end
 
+Users -->|Mouse, Keyboard, Shortcuts<br/>Win+R, SHIFT+F10/F12, Win Key| Shell
+WASM --> External
+
+%% COLORS
 style Vercel fill:#111827,stroke:#000,stroke-width:4px,color:#fff
 style Shell fill:#dbeafe,stroke:#2563eb,stroke-width:3px
 style FS fill:#fef3c7,stroke:#f59e0b,stroke-width:3px
 style Process fill:#dcfce7,stroke:#16a34a,stroke-width:3px
 style Apps fill:#ede9fe,stroke:#7c3aed,stroke-width:3px
 style WASM fill:#ffedd5,stroke:#f97316,stroke-width:3px
+style External fill:#f3f4f6,stroke:#6b7280,stroke-width:2px
 ```
 
 ---
